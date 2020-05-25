@@ -24,5 +24,11 @@ export default {
   zhiyePathItem:(id) => `${PREFIX}/api/admin/zhiye/path/${id}`,
   zhiyeCourse: `${PREFIX}/api/admin/zhiye/course`,
   zhiyeCourseItem:(id) => `${PREFIX}/api/admin/zhiye/course/${id}`,
-  zhiyeCourseSort:`${PREFIX}/api/admin/zhiye/course/sort/edit`
+  zhiyeCourseSort:`${PREFIX}/api/admin/zhiye/course/sort/edit`,
+  //公司
+  companies:`${PREFIX}/api/admin/company`,
+  companiesItem:(id) => `${PREFIX}/api/admin/company/${id}`,
+
+  //项目
+  projects:`${PREFIX}/api/admin/project`
 };

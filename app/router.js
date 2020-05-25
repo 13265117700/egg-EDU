@@ -47,4 +47,13 @@ module.exports = app => {
   router.post('/api/admin/zhiye/course', jwt, controller.zhiyeCourses.created)//职业路径与课程关联创建
   router.delete('/api/admin/zhiye/course/:id', jwt, controller.zhiyeCourses.delete)//职业路径与课程关联删除
   router.post('/api/admin/zhiye/course/sort/edit', jwt, controller.zhiyeCourses.sort)//职业路径与课程关联排序
+
+  router.get('/api/admin/company', jwt, controller.companies.index)//公司列表
+  router.post('/api/admin/company', jwt, controller.companies.create)//公司创建
+  router.get('/api/admin/company/:id', jwt, controller.companies.indexItem)//公司详情
+  router.put('/api/admin/company/:id', jwt, controller.companies.updated)//公司编辑
+  router.delete('/api/admin/company/:id', jwt, controller.companies.delete)//公司删除
+
+  router.get('/api/admin/project', jwt, controller.projects.index)//项目列表
+  router.post('/api/admin/project', jwt, controller.projects.create)//项目添加
 };

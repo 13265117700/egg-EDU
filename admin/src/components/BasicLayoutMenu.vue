@@ -23,6 +23,14 @@
       <i class="el-icon-collection-tag"></i>
       <span slot="title">职业管理</span>
     </el-menu-item>
+    <el-menu-item index="/companie">
+      <i class="el-icon-collection-tag"></i>
+      <span slot="title">企业管理</span>
+    </el-menu-item>
+    <el-menu-item index="/project">
+      <i class="el-icon-collection-tag"></i>
+      <span slot="title">项目管理</span>
+    </el-menu-item>
   </el-menu>
 </template>
 

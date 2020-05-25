@@ -12,7 +12,13 @@ import CourseCreate from "../views/IndexCourseCreate";
 import CourseEdit from "../views/IndexCourseEdit";
 import ZhiYe from "../views/IndexZhiYe";
 import ZhiYeCreate from "../views/IndexZhiYeCreate";
-import ZhiYeEdit from "../views/IndexZhiYeEdit"
+import ZhiYeEdit from "../views/IndexZhiYeEdit";
+import Companie from "../views/IndexCompanie";
+import CompanieCreate from "../views/IndexCompanieCreate";
+import CompanieEdit from "../views/IndexCompanieEdit";
+import Project from "../views/IndexProject";
+import ProjectCreate from "../views/IndexProjectCreate";
+import ProjectEdit from "../views/IndexProjectEdit"
 
 export default [
   {
@@ -125,13 +131,61 @@ export default [
         }
       },
       {
-        path:"zhiye/edit/:id",
+        path:"/zhiye/edit/:id",
         name:"ZhiYeEdit",
         component:ZhiYeEdit,
         meta:{
           title:"编辑职业"
         }
-      }
+      },
+      {
+        path:"/companie",
+        name:"Companie",
+        component:Companie,
+        meta:{
+          title:"企业管理"
+        }
+      },
+      {
+        path:"/companie/create",
+        name:"CompanieCreate",
+        component:CompanieCreate,
+        meta:{
+          title:"新建公司"
+        }
+      },
+      {
+        path:"/companie/edit/:id",
+        name:"CompanieEdit",
+        component:CompanieEdit,
+        meta:{
+          title:"编辑公司"
+        }
+      },
+      {
+        path:"/project",
+        name:"Project",
+        component:Project,
+        meta:{
+          title:"项目管理"
+        }
+      },
+      {
+        path:"/project/create",
+        name:"ProjectCreate",
+        component:ProjectCreate,
+        meta:{
+          title:"新建项目"
+        }
+      },
+      {
+        path:"/project/edit/:id",
+        name:"ProjectEdit",
+        component:ProjectEdit,
+        meta:{
+          title:"项目编辑"
+        }
+      },
     ]
   }
 ];
