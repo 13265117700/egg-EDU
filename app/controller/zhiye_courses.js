@@ -41,7 +41,7 @@ class ZhiyeCourseController extends Controller {
         )
         data.course.map(async(datas,indexs)=> {
           await ctx.model.ZhiyeCourses.update(
-            {sort:index},
+            {sort:indexs},
             {where:{id:datas.zhiye_courseId}}
           )
         })

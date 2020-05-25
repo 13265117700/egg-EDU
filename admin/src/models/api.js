@@ -30,5 +30,14 @@ export default {
   companiesItem:(id) => `${PREFIX}/api/admin/company/${id}`,
 
   //项目
-  projects:`${PREFIX}/api/admin/project`
+  projects:`${PREFIX}/api/admin/project`,
+  projectItem:(id) => `${PREFIX}/api/admin/project/${id}`,
+  versions:`${PREFIX}/api/admin/version`,
+  versionItem:(id) => `${PREFIX}/api/admin/version/${id}`,
+  versionSort:`${PREFIX}/api/admin/project/version/sort`,
+  stories:`${PREFIX}/api/admin/story`,
+  storiesItem:(id) => `${PREFIX}/api/admin/story/${id}`,
+  tasks:`${PREFIX}/api/admin/task`,
+  tasksItem:(id)=> `${PREFIX}/api/admin/task/${id}`,
+  tasksSort:`${PREFIX}/api/admin/project/task/sort`
 };

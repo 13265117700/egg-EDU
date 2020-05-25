@@ -56,4 +56,22 @@ module.exports = app => {
 
   router.get('/api/admin/project', jwt, controller.projects.index)//项目列表
   router.post('/api/admin/project', jwt, controller.projects.create)//项目添加
+  router.get('/api/admin/project/:id', jwt, controller.projects.indexItem)//项目详情
+  router.put('/api/admin/project/:id', jwt, controller.projects.updated)//项目编辑
+  router.delete('/api/admin/project/:id', jwt, controller.projects.delete)//项目删除
+
+  router.get('/api/admin/version/:id', jwt, controller.versions.index)//项目版本详情
+  router.post('/api/admin/version', jwt, controller.versions.created)//项目版本新增
+  router.put('/api/admin/version/:id', jwt, controller.versions.updated)//项目版本编辑
+  router.delete('/api/admin/version/:id', jwt, controller.versions.delete)//项目版本删除
+  router.post('/api/admin/project/version/sort', jwt, controller.versions.sort)//项目版本排序
+  router.get('/api/admin/story/:id', jwt, controller.stories.index)//项目版本故事详情
+  router.post('/api/admin/story', jwt, controller.stories.created)//项目版本故事新增
+  router.put('/api/admin/story/:id', jwt, controller.stories.updated)//项目版本故事编辑
+  router.delete('/api/admin/story/:id', jwt, controller.stories.delete)//项目版本故事删除
+  
+  router.post('/api/admin/task', jwt, controller.tasks.created)//项目故事任务新增
+  router.put('/api/admin/task/:id', jwt, controller.tasks.updated)//项目故事任务编辑
+  router.delete('/api/admin/task/:id', jwt, controller.tasks.delete)//项目故事任务删除
+  router.post('/api/admin/project/task/sort', jwt, controller.tasks.sort)//项目故事任务排序
 };

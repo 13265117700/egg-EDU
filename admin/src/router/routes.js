@@ -18,7 +18,8 @@ import CompanieCreate from "../views/IndexCompanieCreate";
 import CompanieEdit from "../views/IndexCompanieEdit";
 import Project from "../views/IndexProject";
 import ProjectCreate from "../views/IndexProjectCreate";
-import ProjectEdit from "../views/IndexProjectEdit"
+import ProjectEdit from "../views/IndexProjectEdit";
+import ProjectContent from "../views/IndexProjectContent";
 
 export default [
   {
@@ -186,6 +187,14 @@ export default [
           title:"项目编辑"
         }
       },
+      {
+        path:"/project/content/:id",
+        name:"ProjectContent",
+        component:ProjectContent,
+        meta:{
+          title:"项目内容"
+        }
+      }
     ]
   }
 ];
