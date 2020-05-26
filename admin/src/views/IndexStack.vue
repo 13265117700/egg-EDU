@@ -66,7 +66,6 @@ export default {
         if (res.data.code === 200) {
           this.$message.success("删除成功!");
           this.tableData.splice(index, 1)
-          location.reload();
         }
       });
     }

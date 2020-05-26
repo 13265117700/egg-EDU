@@ -3,9 +3,10 @@
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
-  const User = app.model.define('user', {
+  const Managers = app.model.define('managers', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     name: STRING(30),
+    role_id:INTEGER,
     real_name: STRING(30),
     phone:STRING(30),
     password: STRING(30),
@@ -17,5 +18,5 @@ module.exports = app => {
     created_at: DATE,
     updated_at: DATE,
   })
-  return User;
+  return Managers;
 };

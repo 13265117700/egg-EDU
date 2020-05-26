@@ -8,32 +8,44 @@
       highlight-current-row
       @current-change="handleCurrentChange"
       style="width: 100%">
-      <el-table-column label="ID" width="180">
+      <el-table-column label="ID" width="120">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="名称">
+      <el-table-column label="姓名">
         <template slot-scope="scope">
-          <span>{{ scope.row.stem }}</span>
+          <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="技能">
+      <el-table-column label="手机号码">
         <template slot-scope="scope">
-          <span>{{ scope.row.stack_name }}</span>
+          <span>{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="角色">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
+          <span>{{ scope.row.role_id }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="80">
+        <template slot-scope="scope">
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              <i class="el-icon-more el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="el-icon-view">
+                <el-button type="text" @click="handleItem(scope.$index, scope.row)">内容</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item icon="el-icon-edit">
+                <el-button type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item icon="el-icon-folder-delete">
+                <el-button type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -41,7 +53,6 @@
 </template>
 
 <script>
-import QuestionModel from "../models/question";
 export default {
   data() {
     return {
@@ -49,9 +60,6 @@ export default {
     };
   },
   created() {
-    QuestionModel.showQuestion().then(res => {
-      this.tableData = res.data.questions;
-    });
   },
   methods: {
     handAdd() {
@@ -66,13 +74,6 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
       console.log(this.tableData)
-      QuestionModel.deleteQuestion(row.id).then(res => {
-        if(res.data.code === 200){
-          this.$message.success("删除成功!");
-          this.tableData.splice(index, 1)
-          location.reload();
-        }
-      })
     }
   }
 };

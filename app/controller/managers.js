@@ -7,7 +7,7 @@ function toInt(str) {
   return parseInt(str, 10) || 0;
 }
 
-class UserController extends Controller {
+class ManageController extends Controller {
   async passwordLogin() {
     const ctx = this.ctx
     let phone = ctx.request.body.phone
@@ -17,11 +17,11 @@ class UserController extends Controller {
       return
     }
     try{
-      const users = await ctx.model.User.findAll({where:{phone, password}})
-      const user = users[0]
-      if(user){
+      const Managers = await ctx.model.Managers.findAll({where:{phone, password}})
+      const Manager = Managers[0]
+      if(Manager){
         const token = this.app.jwt.sign({
-          name:user.name+`\t`+phone+`\t`+password+`\t`+user.id
+          name:Manager.name+`\t`+phone+`\t`+password+`\t`+Manager.id
         },this.app.config.jwt.secret)
         ctx.body = { code:200,message:'登陆成功!',token}
       }
@@ -71,4 +71,4 @@ class UserController extends Controller {
   // }
 }
 
-module.exports = UserController;
+module.exports = ManageController;

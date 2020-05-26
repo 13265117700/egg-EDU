@@ -20,6 +20,10 @@ import Project from "../views/IndexProject";
 import ProjectCreate from "../views/IndexProjectCreate";
 import ProjectEdit from "../views/IndexProjectEdit";
 import ProjectContent from "../views/IndexProjectContent";
+import Manager from "../views/IndexManager";
+import Role from "../views/IndexRole";
+import RoleCreate from "../views/IndexRoleCreate";
+import RoleEdit from "../views/IndexRoleEdit";
 
 export default [
   {
@@ -193,6 +197,38 @@ export default [
         component:ProjectContent,
         meta:{
           title:"项目内容"
+        }
+      },
+      {
+        path:"/manager",
+        name:"Manager",
+        component:Manager,
+        meta:{
+          title:"管理员列表"
+        }
+      },
+      {
+        path:"/role",
+        name:"Role",
+        component:Role,
+        meta:{
+          title:"角色列表"
+        }
+      },
+      {
+        path:"/role/create",
+        name:"RoleCreate",
+        component:RoleCreate,
+        meta:{
+          title:"新建角色"
+        }
+      },
+      {
+        path:"/role/edit/:id",
+        name:"RoleEdit",
+        component:RoleEdit,
+        meta:{
+          title:"编辑角色"
         }
       }
     ]

@@ -3,12 +3,15 @@ const PREFIX = "http://127.0.0.1:7001";
 export default {
   passwordLogin: `${PREFIX}/users`,
   qiniu: `${PREFIX}/qiniu`,
+
   //技能
   stack: `${PREFIX}/api/admin/stack`,
   stackEdit: (id) => `${PREFIX}/api/admin/stack/${id}`,
+
   //题库
   question: `${PREFIX}/api/admin/skill/question`,
   questionEdit:(id) => `${PREFIX}/api/admin/skill/question/${id}`,
+
   //课程
   course:`${PREFIX}/api/admin/course`,
   courseId:(id) => `${PREFIX}/api/admin/course/${id}`,
@@ -17,6 +20,7 @@ export default {
   courseChapterSort:`${PREFIX}/api/admin/chapter/sort/edit`,
   courseSection:`${PREFIX}/api/admin/section`,
   courseSectionEdit:(id) => `${PREFIX}/api/admin/section/${id}`,
+
   //职业
   zhiye:`${PREFIX}/api/admin/zhiye`,
   zhiyeItem:(id) => `${PREFIX}/api/admin/zhiye/${id}`,
@@ -25,6 +29,7 @@ export default {
   zhiyeCourse: `${PREFIX}/api/admin/zhiye/course`,
   zhiyeCourseItem:(id) => `${PREFIX}/api/admin/zhiye/course/${id}`,
   zhiyeCourseSort:`${PREFIX}/api/admin/zhiye/course/sort/edit`,
+
   //公司
   companies:`${PREFIX}/api/admin/company`,
   companiesItem:(id) => `${PREFIX}/api/admin/company/${id}`,
@@ -39,5 +44,9 @@ export default {
   storiesItem:(id) => `${PREFIX}/api/admin/story/${id}`,
   tasks:`${PREFIX}/api/admin/task`,
   tasksItem:(id)=> `${PREFIX}/api/admin/task/${id}`,
-  tasksSort:`${PREFIX}/api/admin/project/task/sort`
+  tasksSort:`${PREFIX}/api/admin/project/task/sort`,
+
+  //用户的角色与权限
+  roles:`${PREFIX}/api/admin/role`,
+  permission:`${PREFIX}/api/admin/permission`
 };

@@ -6,7 +6,7 @@
 module.exports = app => {
   const { router, controller, jwt} = app;
 
-  router.post('/users', controller.user.passwordLogin);
+  router.post('/users', controller.managers.passwordLogin);
   router.get('/qiniu', jwt, controller.qiniu.qinius)
 
   router.get('/api/admin/stack', jwt, controller.stack.index);//技能列表
@@ -74,4 +74,8 @@ module.exports = app => {
   router.put('/api/admin/task/:id', jwt, controller.tasks.updated)//项目故事任务编辑
   router.delete('/api/admin/task/:id', jwt, controller.tasks.delete)//项目故事任务删除
   router.post('/api/admin/project/task/sort', jwt, controller.tasks.sort)//项目故事任务排序
+
+  router.get('/api/admin/role', jwt, controller.roles.index)//角色列表
+  router.post('/api/admin/role', jwt, controller.roles.created)//角色新增
+  router.get('/api/admin/permission', jwt, controller.roles.permission)//权限
 };
