@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <el-button type="primary" class="create-button" @click="handAdd"
-      >新建管理员</el-button
+      >添加广告</el-button
     >
     <el-table
       ref="singleTable"
@@ -11,24 +11,29 @@
       @current-change="handleCurrentChange"
       style="width: 100%"
     >
-      <el-table-column label="ID" width="120">
+      <el-table-column label="ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名">
+      <el-table-column label="名称">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="手机号码">
+      <el-table-column label="slug">
         <template slot-scope="scope">
-          <span>{{ scope.row.phone }}</span>
+          <span>{{ scope.row.slug }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="角色">
+      <el-table-column label="尺寸:宽">
         <template slot-scope="scope">
-          <span>{{ scope.row.role_name }}</span>
+          <span>{{ scope.row.width }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="尺寸:高">
+        <template slot-scope="scope">
+          <span>{{ scope.row.height }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80">
@@ -61,7 +66,7 @@
 </template>
 
 <script>
-import managerModel from "../models/managers";
+import advertiseModel from "../models/advertise";
 export default {
   data() {
     return {
@@ -69,28 +74,27 @@ export default {
     };
   },
   created() {
-    managerModel.index().then(res => {
+    advertiseModel.index().then(res => {
       this.tableData = res.data.message;
     });
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/setup/manager/create" });
+      this.$router.push({ path: "/atmt/advertise/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/setup/manager/edit/" + row.id });
+      this.$router.push({ path: "/atmt/advertise/edit/" + row.id });
     },
     handleDelete(index, row) {
-      managerModel.delete(row.id).then(res => {
-        console.log(res);
-        if (res.data.code === 200) {
-          this.$message.success("成功删除管理者");
-          this.tableData.splice(index, 1);
+      advertiseModel.delete(row.id).then(res => {
+        if(res.data.code === 200){
+          this.$message.success(res.data.message)
+          this.tableData.splice(index, 1)
         }
-      });
+      })
     }
   }
 };

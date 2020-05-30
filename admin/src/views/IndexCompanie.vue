@@ -1,13 +1,16 @@
 <template>
   <div class="main-container">
-    <el-button type="primary" class="create-button" @click="handAdd">创建企业</el-button>
+    <el-button type="primary" class="create-button" @click="handAdd"
+      >创建企业</el-button
+    >
     <el-table
       ref="singleTable"
       class="form-list"
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentChange"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column label="ID" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -20,11 +23,14 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">
+            @click="handleDelete(scope.$index, scope.row)"
+          >
             删除
           </el-button>
         </template>
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-import companieModel from "../models/companies"
+import companieModel from "../models/companies";
 export default {
   data() {
     return {
@@ -43,27 +49,27 @@ export default {
   },
   created() {
     companieModel.index().then(res => {
-      this.tableData = res.data.message
-    })
+      this.tableData = res.data.message;
+    });
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/companie/create" });
+      this.$router.push({ path: "/epp/companie/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/companie/edit/" + row.id });
+      this.$router.push({ path: "/epp/companie/edit/" + row.id });
     },
     handleDelete(index, row) {
-      console.log(index, row)
+      console.log(index, row);
       companieModel.delete(row.id).then(res => {
-        if(res.data.code === 200){
-          this.$message.success('删除成功!')
-          this.tableData.splice(index, 1)
+        if (res.data.code === 200) {
+          this.$message.success("删除成功!");
+          this.tableData.splice(index, 1);
         }
-      })
+      });
     }
   }
 };

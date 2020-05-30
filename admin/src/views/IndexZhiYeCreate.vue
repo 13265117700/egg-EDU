@@ -6,7 +6,8 @@
       :rules="rules"
       label-width="80px"
       ref="ruleForm"
-      :model="ruleForm">
+      :model="ruleForm"
+    >
       <el-form-item label="职业名称:" prop="name">
         <el-input v-model="ruleForm.name" minlength="10"></el-input>
       </el-form-item>
@@ -20,11 +21,13 @@
           :show-file-list="false"
           :limit="1"
           :http-request="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
+          :before-upload="beforeAvatarUpload"
+        >
           <img
             v-if="ruleForm.image_url"
             :src="ruleForm.image_url"
-            class="avatar"/>
+            class="avatar"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -38,7 +41,7 @@
 <script>
 import qiniuModel from "../models/qiniu";
 import * as qiniu from "qiniu-js";
-import zhiyeModel from "../models/zhiye"
+import zhiyeModel from "../models/zhiye";
 export default {
   data() {
     return {
@@ -106,17 +109,17 @@ export default {
       let name = this.ruleForm.name;
       let description = this.ruleForm.description;
       let image_url = this.ruleForm.image_url;
-      let params = { name, description, image_url }
-      if(!name || !description || !image_url){
-        this.$message.info('缺少必要参数!')
-        return
+      let params = { name, description, image_url };
+      if (!name || !description || !image_url) {
+        this.$message.info("缺少必要参数!");
+        return;
       }
       zhiyeModel.create(params).then(res => {
-        if(res.data.code === 200){
-          this.$message.success('添加成功!')
-          this.$router.push({path:"/zhiye"})
+        if (res.data.code === 200) {
+          this.$message.success("添加成功!");
+          this.$router.push({ path: "/cop/zhiye" });
         }
-      })
+      });
     }
   }
 };

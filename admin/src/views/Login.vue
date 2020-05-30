@@ -182,7 +182,7 @@ export default {
                 if (res.data.code === 200) {
                   localStorage.setItem("token", res.data.token);
                   this.$message.success("登录成!");
-                  this.$router.push({ path: "/" });
+                  this.$router.push({ name: "Index" });
                 }
               })
               .catch(() => {

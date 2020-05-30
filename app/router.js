@@ -77,5 +77,32 @@ module.exports = app => {
 
   router.get('/api/admin/role', jwt, controller.roles.index)//角色列表
   router.post('/api/admin/role', jwt, controller.roles.created)//角色新增
-  router.get('/api/admin/permission', jwt, controller.roles.permission)//权限
+  router.get('/api/admin/permission', jwt, controller.roles.permission)//角色权限
+  router.get('/api/admin/role/:id', jwt, controller.roles.indexItem)//角色详情
+  router.put('/api/admin/role/:id', jwt, controller.roles.updated)//角色编辑
+  router.delete('/api/admin/role/:id', jwt, controller.roles.delete)//角色删除
+
+  router.get('/api/admin/manager', jwt, controller.managers.index)//管理员列表
+  router.post('/api/admin/manager', jwt, controller.managers.created)//管理员新增
+  router.get('/api/admin/manager/:id', jwt, controller.managers.indexItem)//管理员详情
+  router.put('/api/admin/manager/:id', jwt, controller.managers.updated)//管理员编辑
+  router.delete('/api/admin/manager/:id', jwt, controller.managers.delete)//管理员删除
+  router.post('/api/admin/permission', jwt, controller.managers.permission)//管理员权限
+
+  router.get('/api/advertise', jwt, controller.advertise.index)//获取广告位
+  router.post('/api/advertise', jwt, controller.advertise.created)//添加广告位
+  router.get('/api/advertise/:id', jwt, controller.advertise.indexItem)//广告位置详情
+  router.put('/api/advertise/:id', jwt, controller.advertise.updated)//广告位修改
+  router.delete('/api/advertise/:id', jwt, controller.advertise.delete)//广告位删除
+
+  router.get('/api/material', jwt, controller.material.index)//获取物料
+  router.post('/api/material', jwt, controller.material.created)//添加物料
+  router.get('/api/material/:id', jwt, controller.material.indexItem)//物料详情
+  router.put('/api/material/:id', jwt, controller.material.updated)//物料修改
+  router.delete('/api/material/:id', jwt, controller.material.delete)//物料删除
+
+  router.post('/api/advertise/material', jwt, controller.advertise.addMaterial)//广告关联
+  router.get('/api/advertise/material/:id', jwt, controller.advertise.showMaterial)//广告关联详情
+  router.delete('/api/advertise/material/:id', jwt, controller.advertise.deleteMaterial)//删除广告关联
+  router.post('/api/advertise/material/sort/edit', jwt, controller.advertise.sort)//广告关联排序
 };

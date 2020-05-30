@@ -19,22 +19,22 @@ export default {
     Version,
     Storie
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-.mian-description{
+.mian-description {
   text-align: left;
   margin-bottom: 15px;
   line-height: 24px;
   color: #000000;
   padding: 10px 0;
   border-bottom: 2px solid #000000;
-  .title{
+  .title {
     font-size: 24px;
   }
 }
-.main-content{
+.main-content {
   height: 100%;
   display: flex;
   justify-content: space-between;

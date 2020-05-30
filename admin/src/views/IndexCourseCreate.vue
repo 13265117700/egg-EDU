@@ -6,17 +6,20 @@
       :rules="rules"
       label-width="80px"
       ref="ruleForm"
-      :model="ruleForm">
+      :model="ruleForm"
+    >
       <el-form-item
         label="课程名称:"
         prop="name"
-        style="display:inline-block;width:45%;margin-right:10%;">
+        style="display:inline-block;width:45%;margin-right:10%;"
+      >
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item
         label="副标题:"
         prop="name"
-        style="display:inline-block;width:45%">
+        style="display:inline-block;width:45%"
+      >
         <el-input v-model="ruleForm.short_name"></el-input>
       </el-form-item>
       <el-form-item label="课程提示:" prop="tips">
@@ -32,11 +35,13 @@
           :show-file-list="false"
           :limit="1"
           :http-request="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
+          :before-upload="beforeAvatarUpload"
+        >
           <img
             v-if="ruleForm.image_url"
             :src="ruleForm.image_url"
-            class="avatar"/>
+            class="avatar"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -48,7 +53,7 @@
 </template>
 
 <script>
-import courseModel from "../models/course"
+import courseModel from "../models/course";
 import qiniuModel from "../models/qiniu";
 import * as qiniu from "qiniu-js";
 export default {
@@ -58,7 +63,7 @@ export default {
       ruleForm: {
         name: "",
         short_name: "",
-        tips:"",
+        tips: "",
         description: "",
         image_url: ""
       },
@@ -126,14 +131,14 @@ export default {
       let tips = this.ruleForm.tips;
       let description = this.ruleForm.description;
       let image_url = this.ruleForm.image_url;
-      let params = { name, short_name, tips, description, image_url }
+      let params = { name, short_name, tips, description, image_url };
       courseModel.createCourse(params).then(res => {
-        console.log(res)
-        if(res.data.code === 200){
+        console.log(res);
+        if (res.data.code === 200) {
           this.$message.success("添加成功!");
-          this.$router.push({ path: "/course" });
+          this.$router.push({ path: "/cop/course" });
         }
-      })
+      });
     }
   }
 };

@@ -8,24 +8,23 @@
       ref="ruleForm"
       :model="ruleForm"
     >
-      <el-form-item
-        label="技能全称:"
-        prop="name"
-        style="display:inline-block;width:45%;margin-right:10%;"
-      >
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="物料名称:" prop="name">
+        <el-input v-model="ruleForm.name" minlength="10"></el-input>
       </el-form-item>
-      <el-form-item
-        label="技能提示:"
-        prop="tag_line"
-        style="display:inline-block;width:45%"
-      >
-        <el-input v-model="ruleForm.tag_line"></el-input>
+      <el-form-item label="物料链接:" prop="jump_link">
+        <el-input v-model="ruleForm.jump_link" minlength="10"></el-input>
       </el-form-item>
-      <el-form-item label="技能介绍:" prop="description">
-        <el-input v-model="ruleForm.description" minlength="10"></el-input>
+      <el-form-item label="打开窗口:" prop="open">
+         <el-select v-model="open_value" placeholder="请选择打开窗口">
+          <el-option
+            v-for="item in ruleForm.open"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="技能封面:" prop="image_url">
+      <el-form-item label="物料图片:" prop="image_url">
         <el-upload
           class="avatar-uploader"
           action=""
@@ -50,7 +49,7 @@
 </template>
 
 <script>
-import stackModel from "../models/stack";
+import materialModel from "../models/material"
 import qiniuModel from "../models/qiniu";
 import * as qiniu from "qiniu-js";
 export default {
@@ -59,22 +58,24 @@ export default {
       labelPosition: "top",
       ruleForm: {
         name: "",
-        tag_line: "",
-        description: "",
+        jump_link:"",
+        open:[
+          {
+            value: '_self',
+            label: '原窗口'
+          },
+          {
+            value: '_blank',
+            label: '新窗口'
+          }
+        ],
         image_url: ""
       },
+      open_value:"",
       rules: {
         name: [
           { required: true, message: "请输入技能名称", trigger: "blur" },
           { min: 3, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur" }
-        ],
-        tag_line: [
-          { required: true, message: "请输入技能提示", trigger: "blur" },
-          { min: 3, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur" }
-        ],
-        description: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 10, message: "长度最少10个字符", trigger: "blur" }
         ]
       }
     };
@@ -124,23 +125,21 @@ export default {
     },
     handAdd() {
       let name = this.ruleForm.name;
-      let tag_line = this.ruleForm.tag_line;
-      let description = this.ruleForm.description;
+      let jump_link = this.ruleForm.jump_link;
+      let open = this.open_value;
       let image_url = this.ruleForm.image_url;
-
-      if (!name || !tag_line || !description) {
-        this.$message.success("缺少必要参数!");
+      let params = { name, jump_link, open, image_url };
+      if (!name || !jump_link || !open) {
+        this.$message.error("缺少必要参数!");
         return;
       }
 
-      let params = { name, tag_line, description, image_url };
-
-      stackModel.AddStack(params).then(res => {
-        if (res.data.code === 200) {
-          this.$message.success("添加成功!");
-          this.$router.push({ path: "/sqb/stack" });
+      materialModel.created(params).then(res => {
+        if(res.data.code == 200){
+          this.$message.success(res.data.message)
+          this.$router.push({name:"Material"})
         }
-      });
+      })
     }
   }
 };

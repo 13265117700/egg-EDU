@@ -9,7 +9,8 @@
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentChange"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column label="ID" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -27,8 +28,8 @@
       </el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status==1? 'success':'danger'">
-            {{ scope.row.status==1? '已完成':'未完成' }}
+          <el-tag :type="scope.row.status == 1 ? 'success' : 'danger'">
+            {{ scope.row.status == 1 ? "已完成" : "未完成" }}
           </el-tag>
         </template>
       </el-table-column>
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import courseModel from "../models/course"
+import courseModel from "../models/course";
 export default {
   data() {
     return {
@@ -59,27 +60,27 @@ export default {
   },
   created() {
     courseModel.index().then(res => {
-      this.tableData = res.data.message
-    })
+      this.tableData = res.data.message;
+    });
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/course/create" });
+      this.$router.push({ path: "/cop/course/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/course/edit/" + row.id });
+      this.$router.push({ path: "/cop/course/edit/" + row.id });
     },
     handleDelete(index, row) {
       console.log(index, row);
       courseModel.courseDetele(row.id).then(res => {
-        if(res.data.code === 200){
-          this.$message.success('删除成功!')
-          this.tableData.splice(index, 1)
+        if (res.data.code === 200) {
+          this.$message.success("删除成功!");
+          this.tableData.splice(index, 1);
         }
-      })
+      });
     }
   }
 };
@@ -95,8 +96,8 @@ export default {
   }
 }
 
-.el-table__row{
-  .cell{
+.el-table__row {
+  .cell {
     height: 28px;
   }
 }

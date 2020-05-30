@@ -142,7 +142,7 @@ export default {
       stackModel.editStack(id, params).then(res => {
         if (res.data.code === 200) {
           this.$message.success("修改成功!");
-          this.$router.push({ path: "/stack" });
+          this.$router.push({ path: "/sqb/stack" });
         }
       });
     }

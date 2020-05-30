@@ -5,7 +5,8 @@
       :label-position="labelPosition"
       label-width="80px"
       ref="ruleForm"
-      :model="ruleForm">
+      :model="ruleForm"
+    >
       <el-form-item label="项目名称:" prop="name">
         <el-input v-model="ruleForm.name" minlength="10"></el-input>
       </el-form-item>
@@ -39,7 +40,7 @@
 <script>
 import qiniuModel from "../models/qiniu";
 import * as qiniu from "qiniu-js";
-import projectModel from "../models/projects"
+import projectModel from "../models/projects";
 export default {
   data() {
     return {
@@ -97,17 +98,17 @@ export default {
       let name = this.ruleForm.name;
       let description = this.ruleForm.description;
       let image_url = this.ruleForm.image_url;
-      if(!name || !description || !image_url){
-        this.$message.error('缺少必要参数!')
-        return
+      if (!name || !description || !image_url) {
+        this.$message.error("缺少必要参数!");
+        return;
       }
-      let params = { name,description,image_url }
+      let params = { name, description, image_url };
       projectModel.created(params).then(res => {
-        if(res.data.code === 200){
-          this.$message.success('添加成功!')
-          this.$router.push({path:"/project"})
+        if (res.data.code === 200) {
+          this.$message.success("添加成功!");
+          this.$router.push({ path: "/epp/project" });
         }
-      })
+      });
     }
   }
 };

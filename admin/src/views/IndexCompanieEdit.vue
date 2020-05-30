@@ -10,37 +10,43 @@
       <el-form-item
         label="企业全称:"
         prop="name"
-        style="display:inline-block;width:45%;margin-right:10%;">
+        style="display:inline-block;width:45%;margin-right:10%;"
+      >
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item
         label="企业短称:"
         prop="short_name"
-        style="display:inline-block;width:45%">
+        style="display:inline-block;width:45%"
+      >
         <el-input v-model="ruleForm.short_name"></el-input>
       </el-form-item>
       <el-form-item
         label="企业口号:"
         prop="slogan"
-        style="display:inline-block;width:45%;margin-right:10%;">
+        style="display:inline-block;width:45%;margin-right:10%;"
+      >
         <el-input v-model="ruleForm.slogan"></el-input>
       </el-form-item>
       <el-form-item
         label="社会编号:"
         prop="code"
-        style="display:inline-block;width:45%">
+        style="display:inline-block;width:45%"
+      >
         <el-input v-model="ruleForm.code"></el-input>
       </el-form-item>
       <el-form-item
         label="联系人名称:"
         prop="contact_name"
-        style="display:inline-block;width:45%;margin-right:10%;">
+        style="display:inline-block;width:45%;margin-right:10%;"
+      >
         <el-input v-model="ruleForm.contact_name"></el-input>
       </el-form-item>
       <el-form-item
         label="联系人电话:"
         prop="contact_phone"
-        style="display:inline-block;width:45%">
+        style="display:inline-block;width:45%"
+      >
         <el-input v-model="ruleForm.contact_phone"></el-input>
       </el-form-item>
       <el-form-item label="企业介绍:" prop="introduction">
@@ -53,11 +59,13 @@
           :show-file-list="false"
           :limit="1"
           :http-request="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
+          :before-upload="beforeAvatarUpload"
+        >
           <img
             v-if="ruleForm.image_url"
             :src="ruleForm.image_url"
-            class="avatar"/>
+            class="avatar"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -71,7 +79,7 @@
 <script>
 import qiniuModel from "../models/qiniu";
 import * as qiniu from "qiniu-js";
-import companieModel from "../models/companies"
+import companieModel from "../models/companies";
 export default {
   data() {
     return {
@@ -79,10 +87,10 @@ export default {
       ruleForm: {
         name: "",
         short_name: "",
-        slogan:"",
-        code:"",
-        contact_name:"",
-        contact_phone:"",
+        slogan: "",
+        code: "",
+        contact_name: "",
+        contact_phone: "",
         introduction: "",
         image_url: ""
       }
@@ -91,8 +99,8 @@ export default {
   created() {
     let id = this.$route.params.id;
     companieModel.indexItem(id).then(res => {
-      this.ruleForm = res.data.message
-    })
+      this.ruleForm = res.data.message;
+    });
   },
   methods: {
     handleAvatarSuccess(file) {
@@ -147,17 +155,35 @@ export default {
       let contact_phone = this.ruleForm.contact_phone;
       let introduction = this.ruleForm.introduction;
       let image_url = this.ruleForm.image_url;
-      if(!name || !short_name || !slogan || !code || !contact_name || !contact_phone || !introduction || !image_url){
-        this.$message.error('缺少必要参数!')
-        return
+      if (
+        !name ||
+        !short_name ||
+        !slogan ||
+        !code ||
+        !contact_name ||
+        !contact_phone ||
+        !introduction ||
+        !image_url
+      ) {
+        this.$message.error("缺少必要参数!");
+        return;
       }
-      let params = { name, short_name, slogan, code, contact_name, contact_phone, introduction, image_url }
-      companieModel.updated(id,params).then(res => {
-        if(res.data.code === 200){
-          this.$message.success(res.data.message)
-          this.$router.push({path:"/companie"})
+      let params = {
+        name,
+        short_name,
+        slogan,
+        code,
+        contact_name,
+        contact_phone,
+        introduction,
+        image_url
+      };
+      companieModel.updated(id, params).then(res => {
+        if (res.data.code === 200) {
+          this.$message.success(res.data.message);
+          this.$router.push({ path: "/epp/companie" });
         }
-      })
+      });
     }
   }
 };

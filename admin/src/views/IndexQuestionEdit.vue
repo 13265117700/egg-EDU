@@ -72,7 +72,7 @@
 
 <script>
 import stackModel from "../models/stack";
-import questionModel from "../models/question"
+import questionModel from "../models/question";
 export default {
   data() {
     return {
@@ -104,7 +104,7 @@ export default {
       stack_id: "",
       level_id: "",
       currect_index: "",
-      arr: ['A', 'B', 'C', 'D']
+      arr: ["A", "B", "C", "D"]
     };
   },
   created() {
@@ -114,43 +114,43 @@ export default {
 
     let id = this.$route.params.id;
     questionModel.getQuestion(id).then(res => {
-      this.ruleForm.stem = res.data.message.stem
-      this.stack_id = res.data.message.stack_id
-      this.level_id = res.data.message.level
-      let option = res.data.message.option
-      this.ruleForm.option = JSON.parse(option)
-      this.ruleForm.currect = this.ruleForm.option.length
-      this.currect_index = res.data.message.currect
-    })
+      this.ruleForm.stem = res.data.message.stem;
+      this.stack_id = res.data.message.stack_id;
+      this.level_id = res.data.message.level;
+      let option = res.data.message.option;
+      this.ruleForm.option = JSON.parse(option);
+      this.ruleForm.currect = this.ruleForm.option.length;
+      this.currect_index = res.data.message.currect;
+    });
   },
   methods: {
     submitForm() {
       let id = this.$route.params.id;
-      let stem = this.ruleForm.stem
-      let stack_id = this.stack_id
+      let stem = this.ruleForm.stem;
+      let stack_id = this.stack_id;
       let level = this.level_id;
       let optionList = this.ruleForm.option;
       let option = JSON.stringify(optionList);
       let currect = this.currect_index;
 
-      let params = { stem, stack_id, level, option, currect }
-      questionModel.editQuestion(id,params).then(res => {
-        if(res.data.code === 200){
+      let params = { stem, stack_id, level, option, currect };
+      questionModel.editQuestion(id, params).then(res => {
+        if (res.data.code === 200) {
           this.$message.success("编辑成功!");
-          this.$router.push({ path: "/question" });
+          this.$router.push({ path: "/sqb/question" });
         }
-      })
+      });
     },
     removeDomain(option) {
       var index = this.ruleForm.option.indexOf(option);
       if (index !== -1) {
         this.ruleForm.option.splice(index, 1);
-        this.ruleForm.currect = this.ruleForm.option.length
+        this.ruleForm.currect = this.ruleForm.option.length;
       }
     },
     addDomain() {
       let ruleForm = this.ruleForm;
-      console.log(ruleForm)
+      console.log(ruleForm);
       if (ruleForm.option.length >= 4) {
         return;
       }
@@ -159,7 +159,7 @@ export default {
         value: "",
         key: Date.now()
       });
-      this.ruleForm.currect = ruleForm.option.length
+      this.ruleForm.currect = ruleForm.option.length;
     },
     getCurrectIndex(e) {
       this.currect_index = e;

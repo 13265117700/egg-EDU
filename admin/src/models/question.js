@@ -8,13 +8,13 @@ export default {
   AddQuestion: function(data) {
     return request.post(api.question, data);
   },
-  getQuestion: function(id,data) {
-    return request.get(api.questionEdit(id),data)
+  getQuestion: function(id, data) {
+    return request.get(api.questionEdit(id), data);
   },
-  editQuestion: function(id,data) {
-    return request.put(api.questionEdit(id),data)
+  editQuestion: function(id, data) {
+    return request.put(api.questionEdit(id), data);
   },
-  deleteQuestion: function(id){
-    return request.delete(api.questionEdit(id))
+  deleteQuestion: function(id) {
+    return request.delete(api.questionEdit(id));
   }
 };

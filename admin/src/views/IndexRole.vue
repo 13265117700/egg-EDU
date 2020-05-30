@@ -1,13 +1,16 @@
 <template>
   <div class="main-container">
-    <el-button type="primary" class="create-button" @click="handAdd">新建角色</el-button>
+    <el-button type="primary" class="create-button" @click="handAdd"
+      >新建角色</el-button
+    >
     <el-table
       ref="singleTable"
       class="form-list"
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentChange"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column label="ID" width="120">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -34,10 +37,18 @@
                 <el-button type="text" @click="handleItem(scope.$index, scope.row)">内容</el-button>
               </el-dropdown-item> -->
               <el-dropdown-item icon="el-icon-edit">
-                <el-button type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                  type="text"
+                  @click="handleEdit(scope.$index, scope.row)"
+                  >编辑</el-button
+                >
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-folder-delete">
-                <el-button type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                <el-button
+                  type="text"
+                  @click="handleDelete(scope.$index, scope.row)"
+                  >删除</el-button
+                >
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -48,7 +59,7 @@
 </template>
 
 <script>
-import roleModel from "../models/roles"
+import roleModel from "../models/roles";
 export default {
   data() {
     return {
@@ -57,22 +68,26 @@ export default {
   },
   created() {
     roleModel.index().then(res => {
-      this.tableData = res.data.message
-    })
+      this.tableData = res.data.message;
+    });
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/role/create" });
+      this.$router.push({ path: "/setup/role/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/role/edit/" + row.id });
+      this.$router.push({ path: "/setup/role/edit/" + row.id });
     },
     handleDelete(index, row) {
-      console.log(index, row);
-      console.log(this.tableData)
+      roleModel.delete(row.id).then(res => {
+        if (res.data.code === 200) {
+          this.$message.success("角色删除成功!");
+          this.tableData.splice(index, 1);
+        }
+      });
     }
   }
 };

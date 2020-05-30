@@ -30,45 +30,112 @@ class ManageController extends Controller {
     }
   }
 
-  // async show() {
-  //   const ctx = this.ctx;
-  //   ctx.body = await ctx.model.User.findByPk(toInt(ctx.params.id));
-  // }
+  async index() {
+    const ctx = this.ctx;
+    try{
+      const managers = await ctx.model.Managers.findAll();
+      const roles = await ctx.model.Roles.findAll();
 
-  // async create() {
-  //   const ctx = this.ctx;
-  //   const { name, age } = ctx.request.body;
-  //   const user = await ctx.model.User.create({ name, age });
-  //   ctx.status = 201;
-  //   ctx.body = user;
-  // }
+      let manager = []
+      managers.forEach(data => {
+        data.dataValues.role_name = {}
+        manager.push(data.dataValues)
+      })
+      roles.forEach(data => {
+        let id = data.dataValues.id;
+        console.log(id)
+        let name = data.dataValues.name;
+        managers.forEach((data,index) => {
+          if(id === data.dataValues.role_id){
+            manager[index].role_name = name
+          }
+        })
+      })
+      ctx.body = {code:200,message:manager}
+    }catch(e){
+      ctx.body = {code:0,message:'管理员列表服务器错误!'}
+    }
+  }
 
-  // async update() {
-  //   const ctx = this.ctx;
-  //   const id = toInt(ctx.params.id);
-  //   const user = await ctx.model.User.findByPk(id);
-  //   if (!user) {
-  //     ctx.status = 404;
-  //     return;
-  //   }
+  async created() {
+    const ctx = this.ctx;
+    try{
+      let name = ctx.request.body.name;
+      let phone = ctx.request.body.phone;
+      let password = ctx.request.body.password;
+      let role_id = ctx.request.body.role_id;
+      let created_at = new Date()
+      if(!name || !phone || !password || !role_id){
+        ctx.body = {code:0,message:'缺少必要参数!'}
+        return
+      }
+      await ctx.model.Managers.create({name,phone,password,role_id,created_at})
+      ctx.body = {code:200,message:'添加成功!'}
+    }catch(e){
+      ctx.body = {code:0,message:'添加管理服务器错误!'}
+    }
+  }
 
-  //   const { name, age } = ctx.request.body;
-  //   await user.update({ name, age });
-  //   ctx.body = user;
-  // }
+  async indexItem() {
+    const ctx = this.ctx;
+    try{
+      let id = ctx.params.id;
+      const managers = await ctx.model.Managers.findByPk(id)
+      ctx.body = {code:200,message:managers}
+    }catch(e){
+      ctx.body = {code:0,message:'获取管理员失败!'}
+    }
+  }
+  
+  async updated() {
+    const ctx = this.ctx;
+    try{
+      let id = ctx.params.id;
+      let name = ctx.request.body.name;
+      let phone = ctx.request.body.phone;
+      let password = ctx.request.body.password;
+      let role_id = ctx.request.body.role_id;
+      let updated_at = new Date();
+      if(!name || !phone || !password || !role_id){
+        ctx.body = {code:0,message:'缺少必要参数!'}
+        return
+      }
+      await ctx.model.Managers.update(
+        {name,phone,password,role_id,updated_at},
+        {where:{id}}
+      )
+      ctx.body = {code:200,message:'编辑成功!'}
+    }catch(e){
+      ctx.body = {code:0,message:'编辑管理错误!'}
+    }
+  }
+  
+  async delete() {
+    const ctx = this.ctx;
+    try{
+      let id = ctx.params.id;
+      console.log(id)
+      await ctx.model.Managers.destroy({where:{id}})
+      ctx.body = {code:200,message:"删除成功!"}
+    }catch(e){
+      ctx.body = {code:0,message:'服务器出错!'}
+    }
+  }
 
-  // async destroy() {
-  //   const ctx = this.ctx;
-  //   const id = toInt(ctx.params.id);
-  //   const user = await ctx.model.User.findByPk(id);
-  //   if (!user) {
-  //     ctx.status = 404;
-  //     return;
-  //   }
-
-  //   await user.destroy();
-  //   ctx.status = 200;
-  // }
+  async permission() {
+    const ctx = this.ctx;
+    try{
+      let TOKEN = ctx.request.body.TOKEN;
+      let tokens = this.app.jwt.verify(TOKEN).name
+      let id = tokens.split('\t')[3];
+      const managers = await ctx.model.Managers.findByPk(id)
+      let role_id = managers.role_id
+      const role_permissions = await ctx.model.RolePermissions.findAll({where:{role_id}})
+      ctx.body = {code:200,message:role_permissions}
+    }catch(e){
+      ctx.body = {code:0,message:'权限服务器错误!'}
+    }
+  }
 }
 
 module.exports = ManageController;

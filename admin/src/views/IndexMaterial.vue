@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <el-button type="primary" class="create-button" @click="handAdd"
-      >新建管理员</el-button
+      >添加物料</el-button
     >
     <el-table
       ref="singleTable"
@@ -11,24 +11,31 @@
       @current-change="handleCurrentChange"
       style="width: 100%"
     >
-      <el-table-column label="ID" width="120">
+      <el-table-column label="ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名">
+      <el-table-column label="名称">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="手机号码">
+      <el-table-column label="内容">
         <template slot-scope="scope">
-          <span>{{ scope.row.phone }}</span>
+          <img :src="scope.row.image_url" class="image_url">
+          <a :href="scope.row.image_url" :target=scope.row.open>{{scope.row.image_url}}</a>
         </template>
       </el-table-column>
-      <el-table-column label="角色">
+      <el-table-column label="跳转链接">
         <template slot-scope="scope">
-          <span>{{ scope.row.role_name }}</span>
+          <link rel="stylesheet" :href="scope.row.jump_link">
+          <a :href="scope.row.jump_link" :target=scope.row.open>{{scope.row.jump_link}}</a>
+        </template>
+      </el-table-column>
+      <el-table-column label="打开窗口" width="80">
+        <template slot-scope="scope">
+          <span>{{ scope.row.open == "_self" ? "原窗口":"新窗口" }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80">
@@ -61,7 +68,7 @@
 </template>
 
 <script>
-import managerModel from "../models/managers";
+import materialModel from "../models/material"
 export default {
   data() {
     return {
@@ -69,28 +76,27 @@ export default {
     };
   },
   created() {
-    managerModel.index().then(res => {
-      this.tableData = res.data.message;
-    });
+    materialModel.index().then(res => {
+      this.tableData = res.data.message
+    })
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/setup/manager/create" });
+      this.$router.push({ path: "/atmt/material/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/setup/manager/edit/" + row.id });
+      this.$router.push({ path: "/atmt/material/edit/" + row.id });
     },
     handleDelete(index, row) {
-      managerModel.delete(row.id).then(res => {
-        console.log(res);
-        if (res.data.code === 200) {
-          this.$message.success("成功删除管理者");
-          this.tableData.splice(index, 1);
+      materialModel.delete(row.id).then(res => {
+        if(res.data.code === 200){
+          this.$message.success(res.data.message)
+          this.tableData.splice(index, 1)
         }
-      });
+      })
     }
   }
 };
@@ -100,6 +106,14 @@ export default {
 .main-container {
   width: 100%;
   height: 100%;
+  /deep/.cell{
+    display: flex;
+    .image_url{
+      width: 80px;
+      height: 50px;
+      margin-right: 5px;
+    }
+  }
   .create-button {
     float: left;
     margin-bottom: 10px;

@@ -1,13 +1,16 @@
 <template>
   <div class="main-container">
-    <el-button type="primary" class="create-button" @click="handAdd">创建题库</el-button>
+    <el-button type="primary" class="create-button" @click="handAdd"
+      >创建题库</el-button
+    >
     <el-table
       ref="singleTable"
       class="form-list"
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentChange"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column label="ID" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -55,24 +58,24 @@ export default {
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/question/create" });
+      this.$router.push({ path: "/sqb/question/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/question/edit/" + row.id });
+      this.$router.push({ path: "/sqb/question/edit/" + row.id });
     },
     handleDelete(index, row) {
       console.log(index, row);
-      console.log(this.tableData)
+      console.log(this.tableData);
       QuestionModel.deleteQuestion(row.id).then(res => {
-        if(res.data.code === 200){
+        if (res.data.code === 200) {
           this.$message.success("删除成功!");
-          this.tableData.splice(index, 1)
+          this.tableData.splice(index, 1);
           location.reload();
         }
-      })
+      });
     }
   }
 };

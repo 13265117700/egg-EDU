@@ -9,7 +9,8 @@
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentChange"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column label="ID" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -53,19 +54,19 @@ export default {
   },
   methods: {
     handAdd() {
-      this.$router.push({ path: "/stack/create" });
+      this.$router.push({ path: "/sqb/stack/create" });
     },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
     handleEdit(index, row) {
-      this.$router.push({ path: "/stack/edit/" + row.id });
+      this.$router.push({ path: "/sqb/stack/edit/" + row.id });
     },
     handleDelete(index, row) {
       stackModel.deleteStack(row.id).then(res => {
         if (res.data.code === 200) {
           this.$message.success("删除成功!");
-          this.tableData.splice(index, 1)
+          this.tableData.splice(index, 1);
         }
       });
     }

@@ -5,4 +5,4 @@ export default {
   qiniu: function(data) {
     return request.get(api.qiniu, data);
   }
-}
+};
